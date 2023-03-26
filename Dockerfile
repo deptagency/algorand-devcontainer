@@ -10,7 +10,6 @@ RUN apt update && apt install -y \
   build-essential \
   bzip2 \
   curl \
-  curl \
   git \
   gnupg2 \
   jq \
