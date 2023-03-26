@@ -1,6 +1,7 @@
 {
   "Genesis": {
     "NetworkName": "privnet",
+    "LastPartKeyRound": 350000,
     "Wallets": [
       {
         "Name": "dispenser",

@@ -1,4 +1,5 @@
-FROM debian:bullseye-slim
+ARG ARCH=amd64
+FROM ${ARCH}/debian:bullseye-slim
 
 ENV HOME=/root
 
