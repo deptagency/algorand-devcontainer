@@ -1,0 +1,9 @@
+{
+  "Version": 27,
+  "GossipFanout": 0,
+  "EndpointAddress": "0.0.0.0:4001",
+  "DNSBootstrapID": "",
+  "EnableProfiler": true,
+  "EnableDeveloperAPI": true,
+  "EnableRuntimeMetrics": true
+}

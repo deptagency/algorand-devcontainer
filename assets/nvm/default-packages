@@ -1,0 +1,5 @@
+# Default node.js packages to be installed in global scope
+
+npm
+yarn
+pnpm

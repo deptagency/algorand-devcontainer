@@ -1,0 +1,24 @@
+{
+  "Genesis": {
+    "NetworkName": "privnet",
+    "Wallets": [
+      {
+        "Name": "dispenser",
+        "Stake": 100,
+        "Online": true
+      }
+    ]
+  },
+  "Nodes": [
+    {
+      "Name": "data",
+      "IsRelay": true,
+      "Wallets": [
+        {
+          "Name": "dispenser",
+          "ParticipationOnly": false
+        }
+      ]
+    }
+  ]
+}
