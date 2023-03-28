@@ -6,7 +6,7 @@ ENV HOME=/root
 WORKDIR ${HOME}
 
 # Install some packages
-RUN apt update && apt install -y \
+RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y \
   build-essential \
   bzip2 \
   curl \
@@ -47,6 +47,7 @@ SHELL ["/bin/zsh", "--interactive", "-c"]
 RUN mkdir -p $ALGORAND_NODE
 RUN curl -s -o update.sh https://raw.githubusercontent.com/algorand/go-algorand/rel/stable/cmd/updater/update.sh
 RUN chmod 744 ./update.sh && ./update.sh -i -c stable -p $ALGORAND_NODE -d $ALGORAND_MAINNET/data -n
+# RUN ./update.sh -i -c stable -d $ALGORAND_MAINNET/data
 
 # Setup private node
 COPY assets/algorand/template.json .
@@ -60,7 +61,7 @@ RUN ./install_algorand_indexer.sh
 RUN sed -i -e "s/# $LANG.*/$LANG UTF-8/" /etc/locale.gen && dpkg-reconfigure --frontend=noninteractive locales && update-locale LANG=$LANG
 
 # Install Python and pyenv
-ARG PYTHON_VERSION=3.11
+ARG PYTHON_VERSION=3.10
 RUN curl https://pyenv.run | bash
 COPY assets/zsh/zshrc_pyenv .
 RUN cat zshrc_pyenv >> ~/.zshrc && rm zshrc_pyenv

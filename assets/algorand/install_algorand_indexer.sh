@@ -11,7 +11,13 @@ if [[ "$platform" == "aarch64" ]]
 then
   # aarch64 is an "alias" for arm64
   platform="arm64"
+elif [[ $platform == "x86_64" ]]
+then
+  # x86_64 is an "alias" for amd64
+  platform="amd64"
 fi
+
+echo "PLATFORM: $platform"
 
 latest_release_url=https://api.github.com/repos/algorand/indexer/releases/latest
 download_url=$(curl -s $latest_release_url | jq -r ".assets | .[] | select(.name | test(\"${os}_${platform}\") and test(\"bz2$\")) | .browser_download_url")
