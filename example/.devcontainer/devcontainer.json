@@ -1,0 +1,36 @@
+{
+  "name": "algo-devkit",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "postAttachCommand": "~/start_algorand_services.sh",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "sqltools.connections": [
+          {
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "indexer_db",
+            "connectString": "postgres://${containerEnv:PGUSER}:${containerEnv:PGPASSWORD}@${containerEnv:PGHOST}:${containerEnv:PGPORT}/${containerEnv:PGDATABASE}"
+          }
+        ]
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-python.python",
+        "obsidians.vscode-algorand",
+        "streetsidesoftware.code-spell-checker",
+        "mtxr.sqltools-driver-pg",
+        "mtxr.sqltools"
+      ]
+    }
+  },
+  "forwardPorts": [
+    4001,
+    4002,
+    8980
+  ]
+}
