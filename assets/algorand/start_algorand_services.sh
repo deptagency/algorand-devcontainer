@@ -10,8 +10,8 @@ echo $token > $ALGORAND_DATA/algod.token
 echo $token > $ALGORAND_DATA/kmd-v0.5/kmd.token
 
 # Setup with our own configuration
-mv ~/config.json $ALGORAND_DATA/
-mv ~/kmd_config.json $ALGORAND_DATA/kmd-v0.5/
+cp ~/config.json $ALGORAND_DATA/
+cp ~/kmd_config.json $ALGORAND_DATA/kmd-v0.5/
 
 # Start Algod
 echo "Starting algod..."
