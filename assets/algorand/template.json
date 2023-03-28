@@ -4,9 +4,19 @@
     "LastPartKeyRound": 350000,
     "Wallets": [
       {
-        "Name": "dispenser",
-        "Stake": 100,
+        "Name": "Wallet1",
+        "Stake": 50,
         "Online": true
+      },
+      {
+        "Name": "Wallet2",
+        "Stake": 30,
+        "Online": true
+      },
+      {
+        "Name": "Wallet3",
+        "Stake": 20,
+        "Online": false
       }
     ]
   },
@@ -16,7 +26,15 @@
       "IsRelay": true,
       "Wallets": [
         {
-          "Name": "dispenser",
+          "Name": "Wallet1",
+          "ParticipationOnly": false
+        },
+        {
+          "Name": "Wallet2",
+          "ParticipationOnly": false
+        },
+        {
+          "Name": "Wallet3",
           "ParticipationOnly": false
         }
       ]
