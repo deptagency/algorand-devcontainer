@@ -50,7 +50,6 @@ SHELL ["/bin/zsh", "--interactive", "-c"]
 RUN mkdir -p $ALGORAND_NODE
 RUN curl -s -o update.sh https://raw.githubusercontent.com/algorand/go-algorand/rel/stable/cmd/updater/update.sh
 RUN chmod 744 ./update.sh && ./update.sh -i -c stable -p $ALGORAND_NODE -d $ALGORAND_MAINNET/data -n
-# RUN ./update.sh -i -c stable -d $ALGORAND_MAINNET/data
 
 # Setup private node
 COPY assets/algorand/template.json .
