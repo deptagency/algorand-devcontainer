@@ -1,13 +1,11 @@
 # smonn/algo-devkit
 
-Algorand dev container
+Algorand devcontainer
 
 - Algorand private node (with CLI tools goal, tealdbg, etc)
 - Indexer and Postgres DB
 - Python 3.10+ (as required by PyTEAL)
 - Node.js LTS (plus yarn and pnpm)
-
-For now, the Dockerfile includes a lot and will take a few minutes at least to build. The plan is to turn it into a pre-built Docker image for better reusability.
 
 Algod, Kmd, and Indexer settings are matching the Algorand Sandbox setup:
 
@@ -20,9 +18,11 @@ Algod, Kmd, and Indexer settings are matching the Algorand Sandbox setup:
 - `indexer`:
   - address: `http://localhost:8980`
 
-## Docker repository
+## GitHub container registry
 
-https://hub.docker.com/r/smonn/algo-devkit
+```sh
+docker pull ghcr.io/smonn/algo-devkit
+```
 
 ## TODO
 

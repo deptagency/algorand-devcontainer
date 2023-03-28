@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: smonn/algo-devkit:v3.15.0-stable
+    image: ghcr.io/smonn/algo-devkit:v3.15.0-stable
     volumes:
       - ..:/workspace:cached
     command: sleep infinity
