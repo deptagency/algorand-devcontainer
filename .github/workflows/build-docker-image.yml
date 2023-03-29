@@ -9,9 +9,6 @@ on:
         required: true
         description: Enter version to tag this image with
 
-permissions:
-  packages: write
-
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -19,6 +16,20 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            ghcr.io/smonn/algo-devkit
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=semver,pattern={{version}},value=${{ inputs.version }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ inputs.version }}
+            type=semver,pattern={{major}},value=${{ inputs.version }}
+            type=sha
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -41,4 +52,5 @@ jobs:
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          tags: ghcr.io/smonn/algo-devkit:latest,ghcr.io/smonn/algo-devkit:${{ inputs.version }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
