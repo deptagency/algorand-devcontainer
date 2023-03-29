@@ -1,16 +1,21 @@
-name: ci
+name: build and push docker image
+run-name: build and push smonn/algo-devkit:${{ inputs.version }}
 
 on:
-  push:
-    branches:
-      - "main"
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        required: true
+        description: Enter version to tag this image with
+
+permissions:
+  packages: write
 
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - name: Set version
-        run: echo "ALGOD_VERSION=$(curl -s https://api.github.com/repos/algorand/go-algorand/releases | jq -r '[.[] | select(.target_commitish == "rel/stable") | .tag_name][0]')" >> $GITHUB_ENV
       -
         name: Checkout
         uses: actions/checkout@v3
@@ -34,4 +39,6 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/smonn/algo-devkit:latest,ghcr.io/smonn/algo-devkit:${{ env.ALGOD_VERSION }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          tags: ghcr.io/smonn/algo-devkit:latest,ghcr.io/smonn/algo-devkit:${{ inputs.version }}

@@ -1,7 +1,8 @@
 ARG ARCH=amd64
+ARG VERSION=3.15.0
 FROM ${ARCH}/debian:bullseye-slim
 
-LABEL org.opencontainers.image.version 3.15.0
+LABEL org.opencontainers.image.version ${VERSION}
 LABEL org.opencontainers.image.source https://github.com/smonn/algo-devkit
 
 ENV HOME=/root
