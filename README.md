@@ -2,9 +2,9 @@
 
 Algorand devcontainer including:
 
-- AlgoKit
-- Algorand private node
-- Indexer and Postgres DB
+- [AlgoKit](https://developer.algorand.org/algokit/) (no need to start/stop localnet)
+- [Algod](https://developer.algorand.org/docs/rest-apis/algod/) setup as a private node
+- [Indexer](https://developer.algorand.org/docs/rest-apis/indexer/) and Postgres DB
 - Python 3.10+ (as required by PyTEAL)
 - Node.js LTS (plus yarn and pnpm)
 
