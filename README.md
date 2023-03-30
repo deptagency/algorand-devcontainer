@@ -21,6 +21,10 @@ Algod, Kmd, and Indexer settings are matching the Algorand Sandbox setup:
 
 The above should work with [Dappflow](https://app.dappflow.org)'s Sandbox config.
 
+## Usage
+
+Check the [example](/example/) directory for how to setup your devcontainer.
+
 ## GitHub container registry
 
 ```sh
