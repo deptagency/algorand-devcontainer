@@ -1,0 +1,4 @@
+# ignoring all files to allow testing the example setup
+*
+!.devcontainer
+!.gitignore

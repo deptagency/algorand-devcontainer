@@ -1,36 +1,105 @@
 {
-  "name": "algo-devkit",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "app",
-  "workspaceFolder": "/workspace",
-  "postAttachCommand": "~/start_algorand_services.sh",
   "customizations": {
     "vscode": {
+      "extensions": [
+        "bungcip.better-toml",
+        "charliermarsh.ruff",
+        "dbaeumer.vscode-eslint",
+        "editorconfig.editorconfig",
+        "emeraldwalk.runonsave",
+        "esbenp.prettier-vscode",
+        "matangover.mypy",
+        "ms-python.python",
+        "mtxr.sqltools-driver-pg",
+        "mtxr.sqltools",
+        "obsidians.vscode-algorand",
+        "runarsf.platform-settings",
+        "streetsidesoftware.code-spell-checker"
+      ],
       "settings": {
+        "[python]": {
+          // https://dev.to/eegli/quick-guide-to-python-formatting-in-vs-code-2040
+          "editor.defaultFormatter": null
+        },
+        "editor.codeActionsOnSave": {
+          // Don't want to use isort because it conflicts with Ruff - see run on save below
+          "source.organizeImports": false
+        },
+        // General - see also /.editorconfig
+        "editor.formatOnSave": true,
+        "emeraldwalk.runonsave": {
+          "commands": [
+            // Run Ruff linter on save of Python file
+            {
+              "cmd": "${workspaceFolder}/.venv/bin/ruff ${file} --fix",
+              "match": "\\.py$"
+            },
+            // Run Ruff linter on save of Python file
+            {
+              "cmd": "${workspaceFolder}/.venv/scripts/ruff ${file} --fix",
+              "match": "\\.py$"
+            }
+          ]
+        },
+        "files.exclude": {
+          "**/.DS_Store": true,
+          "**/.git": true,
+          "**/__pycache__": true,
+          "**/Thumbs.db": true,
+          ".idea": true,
+          ".mypy_cache": true,
+          ".pytest_cache": true,
+          ".ruff_cache": true
+        },
+        "mypy.configFile": "pyproject.toml",
+        "mypy.runUsingActiveInterpreter": true,
+        // set to empty array to use config from project
+        "mypy.targets": [],
+        // Python
+        "platformSettings.autoLoad": true,
+        "platformSettings.platforms": {
+          "default": {
+            "nodes": {
+              "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+            }
+          },
+          "win32": {
+            "nodes": {
+              "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe"
+            }
+          }
+        },
+        "python.analysis.diagnosticSeverityOverrides": {
+          "reportShadowedImports": "none"
+        },
+        "python.analysis.indexing": true,
+        "python.analysis.typeCheckingMode": "off",
+        "python.formatting.provider": "black",
+        "python.linting.banditEnabled": false,
+        "python.linting.enabled": true,
+        "python.linting.lintOnSave": true,
+        "python.linting.mypyEnabled": false,
+        "python.linting.prospectorEnabled": false,
+        "python.linting.pycodestyleEnabled": false,
+        "python.linting.pydocstyleEnabled": false,
+        "python.linting.pylintEnabled": false,
+        "python.testing.pytestEnabled": true,
+        "python.testing.unittestEnabled": false,
+        "ruff.importStrategy": "fromEnvironment",
         "sqltools.connections": [
           {
-            "previewLimit": 50,
-            "server": "localhost",
+            "connectString": "postgres://${containerEnv:PGUSER}:${containerEnv:PGPASSWORD}@${containerEnv:PGHOST}:${containerEnv:PGPORT}/${containerEnv:PGDATABASE}",
             "driver": "PostgreSQL",
             "name": "indexer_db",
-            "connectString": "postgres://${containerEnv:PGUSER}:${containerEnv:PGPASSWORD}@${containerEnv:PGHOST}:${containerEnv:PGPORT}/${containerEnv:PGDATABASE}"
+            "previewLimit": 50,
+            "server": "localhost"
           }
         ]
-      },
-      "extensions": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "ms-python.python",
-        "obsidians.vscode-algorand",
-        "streetsidesoftware.code-spell-checker",
-        "mtxr.sqltools-driver-pg",
-        "mtxr.sqltools"
-      ]
+      }
     }
   },
-  "forwardPorts": [
-    4001,
-    4002,
-    8980
-  ]
+  "dockerComposeFile": "docker-compose.yml",
+  "name": "algo-devkit",
+  "service": "app",
+  "workspaceFolder": "/workspace"
 }

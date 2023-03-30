@@ -2,7 +2,8 @@
 
 Algorand devcontainer
 
-- Algorand private node (with CLI tools goal, tealdbg, etc)
+- AlgoKit
+- Algorand private node
 - Indexer and Postgres DB
 - Python 3.10+ (as required by PyTEAL)
 - Node.js LTS (plus yarn and pnpm)
@@ -18,6 +19,8 @@ Algod, Kmd, and Indexer settings are matching the Algorand Sandbox setup:
 - `indexer`:
   - address: `http://localhost:8980`
 
+The above should work with Dappflow.
+
 ## GitHub container registry
 
 ```sh
@@ -27,7 +30,6 @@ docker pull ghcr.io/smonn/algo-devkit
 ## TODO
 
 - Even better shell (maybe p10k)
-- Setup poetry for managing python dependencies?
 - Setup basic Node.js package.json?
 - Add some script utilities
 - Customize algod/indexer settings further
