@@ -2,7 +2,7 @@ version: "3"
 
 services:
   app:
-    image: smonn/algo-devkit:latest
+    image: ghcr.io/deptagency/algorand-devcontainer:latest
     init: true
     volumes:
       - ..:/workspace:cached

@@ -1,6 +1,6 @@
 FROM debian:11.6
 
-LABEL org.opencontainers.image.source https://github.com/smonn/algo-devkit
+LABEL org.opencontainers.image.source https://github.com/deptagency/algorand-devcontainer
 
 ENV HOME=/root
 

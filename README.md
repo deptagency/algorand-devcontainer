@@ -1,6 +1,6 @@
-# smonn/algo-devkit
+# deptagency/algorand-devcontainer
 
-Algorand devcontainer
+Algorand devcontainer including:
 
 - AlgoKit
 - Algorand private node
@@ -19,12 +19,12 @@ Algod, Kmd, and Indexer settings are matching the Algorand Sandbox setup:
 - `indexer`:
   - address: `http://localhost:8980`
 
-The above should work with Dappflow.
+The above should work with [Dappflow](https://app.dappflow.org)'s Sandbox config.
 
 ## GitHub container registry
 
 ```sh
-docker pull ghcr.io/smonn/algo-devkit
+docker pull ghcr.io/deptagency/algorand-devcontainer
 ```
 
 ## TODO
