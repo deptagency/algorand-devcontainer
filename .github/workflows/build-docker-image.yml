@@ -1,5 +1,5 @@
 name: build and push docker image
-run-name: build and push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.version }}
+run-name: build and push ghcr.io/${{ github.repository }}:${{ inputs.version }}
 
 on:
   workflow_dispatch:
