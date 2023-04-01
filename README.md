@@ -11,7 +11,7 @@ Algorand devcontainer setup for [AlgoKit](https://developer.algorand.org/algokit
 
 Thanks to AlgoKit you can use [Dappflow](https://app.dappflow.org) to test your smart contract.
 
-> IMPORTANT! After you've setup your project with `algokit init` you will need to replace any `http://localhost` references with `http://host.docker.internal` to allow `python -m smart_contracts` to build and deploy successfully.
+> IMPORTANT! After you've setup your project with `algokit init` you will need to replace any `http://localhost` references with `http://host.docker.internal` in `smart_contracts/.env` to allow `python -m smart_contracts` to build and deploy successfully.
 
 ## Usage
 
