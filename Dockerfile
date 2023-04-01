@@ -1,80 +1,61 @@
-FROM debian:11.6
+# source image args
+ARG PYTHON_VERSION=3.11
+ARG ALPINE_VERSION=3.17
+
+FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION}
 
 LABEL org.opencontainers.image.source https://github.com/deptagency/algorand-devcontainer
 
-ENV HOME=/root
+# config args
+ARG PIPX_VERSION=1.2.0
+ARG POETRY_VERSION=1.4.1
+ARG ALGOKIT_VERSION=1.0.1
+ARG PNPM_VERSION=8.1.0
+ARG YARN_VERSION=1.22.19
+ARG USERNAME=dept
 
-WORKDIR ${HOME}
-
-RUN DEBIAN_FRONTEND=noninteractive apt update && apt install -y \
-  apt-transport-https \
-  build-essential \
-  bzip2 \
-  ca-certificates \
+RUN apk update && apk add --no-cache \
+  build-base \
   curl \
+  docker \
+  docker-cli-compose \
   git \
-  gnupg2 \
   jq \
-  libbz2-dev \
+  libc-dev \
   libffi-dev \
-  liblzma-dev \
-  libncurses5-dev \
-  libreadline-dev \
-  libsqlite3-dev \
-  libssl-dev \
-  libxml2-dev \
-  libxmlsec1-dev \
-  llvm \
-  locales \
-  lsb-release \
-  make \
-  postgresql \
-  software-properties-common \
-  tk-dev \
-  wget \
-  xz-utils \
-  zlib1g-dev \
+  musl-dev \
+  nodejs \
+  npm \
+  python3-dev \
+  sudo \
   zsh
 
-# Install Docker CE CLI
-RUN curl -fsSL https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/gpg | apt-key add - 2>/dev/null \
-    && echo "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]') $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list \
-    && apt update \
-    && apt install -y docker-ce-cli
+# setup group and user
+RUN addgroup -S ${USERNAME} && adduser ${USERNAME} -g "" -s /bin/zsh -D -S -G ${USERNAME} && adduser ${USERNAME} docker
+RUN echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+USER ${USERNAME}
+WORKDIR /home/${USERNAME}
 
-# Install Docker Compose
-RUN export LATEST_COMPOSE_VERSION=$(curl -sSL "https://api.github.com/repos/docker/compose/releases/latest" | grep -o -P '(?<="tag_name": ").+(?=")') \
-    && curl -sSL "https://github.com/docker/compose/releases/download/${LATEST_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
-    && chmod +x /usr/local/bin/docker-compose
+# setup some env vars
+RUN echo 'export PNPM_HOME="$HOME/.pnpm"' >> ~/.zshenv
+RUN echo 'export PATH="$PATH:$PNPM_HOME:$HOME/.yarn/bin:$HOME/.local/bin"' >> ~/.zshenv
 
-# Setup some env variables
-RUN echo 'export LANG="en_US.UTF-8"' >> .zshenv
-RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> .zshenv
-RUN echo 'export PATH="$PYENV_ROOT/bin:$HOME/.local/bin:$PATH"' >> .zshenv
-RUN echo 'export NVM_DIR="$HOME/.nvm"' >> .zshenv
+# setup pnpm and yarn (must be done as root)
+RUN npm config set prefix ~/.local
+RUN npm install -g pnpm@${PNPM_VERSION} yarn@${YARN_VERSION}
 
-# Install oh-my-zsh https://ohmyz.sh/
+# use zsh from now on
+SHELL ["/bin/zsh", "--login", "--interactive", "-c"]
+
+# setup pipx, poetry, and algokit
+RUN python3 -m pip install --user pipx==${PIPX_VERSION}
+RUN pipx install poetry==${POETRY_VERSION}
+RUN pipx install algokit==${ALGOKIT_VERSION}
+
+# setup oh my zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Use zsh from here on out, use interactive+login mode to ensure .zshrc is (re)loaded
-SHELL ["/bin/zsh", "--interactive", "--login", "-c"]
-
-# Setup language and locale (needed later for perl/psql)
-RUN sed -i -e "s/# $LANG.*/$LANG UTF-8/" /etc/locale.gen && dpkg-reconfigure --frontend=noninteractive locales && update-locale LANG=$LANG
-
-# Install Python and pyenv
-ARG PYTHON_VERSION=3.10
-RUN curl https://pyenv.run | bash
-RUN echo 'eval "$(pyenv init -)"' >> .zshrc
-RUN pyenv install $PYTHON_VERSION && pyenv global $PYTHON_VERSION
-RUN curl -sSL https://install.python-poetry.org | python -
-RUN python -m pip install --user pipx
-RUN pipx install algokit
-
-# Install Node.js, npm (latest), yarn, pnpm
-ARG NODEJS_VERSION=--lts
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-RUN echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> .zshrc
-RUN echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> .zshrc
-RUN nvm install --default $NODEJS_VERSION
-RUN npm install -g npm yarn pnpm
+# setup startup script
+COPY --chown=${USERNAME}:${USERNAME} --chmod=744 entrypoint.sh .
+VOLUME /var/run/docker.sock
+ENTRYPOINT ./entrypoint.sh && /bin/zsh --login --interactive
