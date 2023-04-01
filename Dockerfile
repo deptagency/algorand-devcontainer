@@ -26,6 +26,7 @@ RUN apk update && apk add --no-cache \
   musl-dev \
   nodejs \
   npm \
+  openssh \
   python3-dev \
   sudo \
   zsh
