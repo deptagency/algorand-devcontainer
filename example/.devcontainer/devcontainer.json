@@ -10,8 +10,6 @@
         "esbenp.prettier-vscode",
         "matangover.mypy",
         "ms-python.python",
-        "mtxr.sqltools-driver-pg",
-        "mtxr.sqltools",
         "obsidians.vscode-algorand",
         "runarsf.platform-settings",
         "streetsidesoftware.code-spell-checker"
@@ -56,19 +54,7 @@
         // set to empty array to use config from project
         "mypy.targets": [],
         // Python
-        "platformSettings.autoLoad": true,
-        "platformSettings.platforms": {
-          "default": {
-            "nodes": {
-              "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
-            }
-          },
-          "win32": {
-            "nodes": {
-              "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe"
-            }
-          }
-        },
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
         "python.analysis.diagnosticSeverityOverrides": {
           "reportShadowedImports": "none"
         },
@@ -85,21 +71,12 @@
         "python.linting.pylintEnabled": false,
         "python.testing.pytestEnabled": true,
         "python.testing.unittestEnabled": false,
-        "ruff.importStrategy": "fromEnvironment",
-        "sqltools.connections": [
-          {
-            "connectString": "postgres://${containerEnv:PGUSER}:${containerEnv:PGPASSWORD}@${containerEnv:PGHOST}:${containerEnv:PGPORT}/${containerEnv:PGDATABASE}",
-            "driver": "PostgreSQL",
-            "name": "indexer_db",
-            "previewLimit": 50,
-            "server": "localhost"
-          }
-        ]
+        "ruff.importStrategy": "fromEnvironment"
       }
     }
   },
   "dockerComposeFile": "docker-compose.yml",
-  "name": "algo-devkit",
+  "name": "algokit",
   "service": "app",
   "workspaceFolder": "/workspace"
 }

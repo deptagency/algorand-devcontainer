@@ -1,13 +1,13 @@
 # deptagency/algorand-devcontainer
 
-Algorand devcontainer including:
+Algorand devcontainer setup for [AlgoKit](https://developer.algorand.org/algokit/) with all prerequisites:
 
-- [AlgoKit](https://developer.algorand.org/algokit/) and all prerequisites:
-  - Python 3.10+ (as required by PyTEAL)
-  - Node.js LTS (plus yarn and pnpm)
-  - Docker CLI (to allow `algokit localnet start/stop`)
-  - Poetry
-  - pipx
+- Python 3.10+ (as required by PyTEAL)
+- Git
+- PipX
+- Poetry
+- Docker CLI (to allow `algokit localnet start/stop`)
+- Node.js LTS (plus yarn and pnpm)
 
 Thanks to AlgoKit you can use [Dappflow](https://app.dappflow.org) to test your smart contract.
 
