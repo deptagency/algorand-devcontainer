@@ -76,6 +76,7 @@
     }
   },
   "dockerComposeFile": "docker-compose.yml",
+  "postAttachCommand": "~/entrypoint.sh",
   "name": "algokit",
   "service": "app",
   "workspaceFolder": "/workspace"
