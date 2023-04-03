@@ -25,7 +25,7 @@ docker pull ghcr.io/deptagency/algorand-devcontainer
 
 ## Support
 
-For non-DEPT developers, feel free to [submit issues](https://github.com/deptagency/algorand-devcontainer/issues) or [ask a question](https://github.com/deptagency/algorand-devcontainer/discussions).
+For non-DEPT developers, feel free to [submit issues](https://github.com/deptagency/algorand-devcontainer/issues) or [ask questions](https://github.com/deptagency/algorand-devcontainer/discussions).
 
 ## TODO
 
