@@ -23,6 +23,10 @@ Check the [example](/example/) directory for how to setup your devcontainer.
 docker pull ghcr.io/deptagency/algorand-devcontainer
 ```
 
+## Support
+
+For non-DEPT developers, feel free to [submit issues](https://github.com/deptagency/algorand-devcontainer/issues) or [ask a question](https://github.com/deptagency/algorand-devcontainer/discussions).
+
 ## TODO
 
 - Even better shell (maybe p10k)
